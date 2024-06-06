@@ -5,58 +5,54 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
+
 namespace PC4_ML
 {
     public partial class MLRecomendation
     {
         /// <summary>
-        /// model input class for MLRecomendation.
+        /// Clase de entrada del modelo para MLRecomendation.
         /// </summary>
         #region model input class
         public class ModelInput
         {
             [LoadColumn(0)]
-            [ColumnName(@"productoid")]
-            public float Productoid { get; set; }
+            [ColumnName(@"productoId")]
+            public float ProductoId { get; set; }
 
             [LoadColumn(1)]
-            [ColumnName(@"rating")]
-            public float Rating { get; set; }
+            [ColumnName(@"interes")]
+            public float Interes { get; set; }
 
             [LoadColumn(2)]
-            [ColumnName(@"userid")]
-            public float Userid { get; set; }
-
+            [ColumnName(@"usuarioId")]
+            public float UsuarioId { get; set; }
         }
-
         #endregion
 
         /// <summary>
-        /// model output class for MLRecomendation.
+        /// Clase de salida del modelo para MLRecomendation.
         /// </summary>
         #region model output class
         public class ModelOutput
         {
-            [ColumnName(@"productoid")]
-            public float Productoid { get; set; }
+            [ColumnName(@"productoId")]
+            public float ProductoId { get; set; }
 
-            [ColumnName(@"rating")]
-            public float Rating { get; set; }
+            [ColumnName(@"interes")]
+            public float Interes { get; set; }
 
-            [ColumnName(@"userid")]
-            public float Userid { get; set; }
+            [ColumnName(@"usuarioId")]
+            public float UsuarioId { get; set; }
 
             [ColumnName(@"Score")]
             public float Score { get; set; }
-
         }
-
         #endregion
 
         private static string MLNetModelPath = Path.GetFullPath("MLRecomendation.mlnet");
 
         public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
-
 
         private static PredictionEngine<ModelInput, ModelOutput> CreatePredictEngine()
         {
@@ -66,15 +62,14 @@ namespace PC4_ML
         }
 
         /// <summary>
-        /// Use this method to predict on <see cref="ModelInput"/>.
+        /// Utiliza este método para predecir con <see cref="ModelInput"/>.
         /// </summary>
-        /// <param name="input">model input.</param>
-        /// <returns><seealso cref=" ModelOutput"/></returns>
+        /// <param name="input">Entrada del modelo.</param>
+        /// <returns><seealso cref="ModelOutput"/></returns>
         public static ModelOutput Predict(ModelInput input)
         {
             var predEngine = PredictEngine.Value;
             return predEngine.Predict(input);
         }
-
     }
 }
