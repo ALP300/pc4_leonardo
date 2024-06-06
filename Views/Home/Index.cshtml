@@ -1,8 +1,131 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Tienda de Ropa - Inicio";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">¡Bienvenidos a la Tienda de Moda!</h1>
+    <p>Explora las últimas tendencias en ropa y accesorios. <br/>Descubre nuestras ofertas <a href="/promociones">aquí</a>.</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title">Nuevas Colecciones</h2>
+                    <p class="card-text">Descubre las colecciones más recientes y encuentra tu estilo único.</p>
+                    <a class="btn btn-primary" href="/colecciones">Ver Colecciones &raquo;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title">Promociones Especiales</h2>
+                    <p class="card-text">Aprovecha descuentos exclusivos y ofertas limitadas en nuestros productos.</p>
+                    <a class="btn btn-primary" href="/promociones">Ver Promociones &raquo;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title">Contacta con Nosotros</h2>
+                    <p class="card-text">¿Tienes preguntas? Nuestro equipo está aquí para ayudarte.</p>
+                    <a class="btn btn-primary" href="/contacto">Contáctanos &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- CSS embebido -->
+<style>
+/* Estilo General */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+    color: #343a40;
+}
+
+/* Encabezado */
+.text-center h1 {
+    color: #343a40;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.text-center p {
+    color: #6c757d;
+    font-size: 1.2rem;
+}
+
+/* Enlaces */
+.text-center a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+/* Tarjetas */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    color: #007bff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    color: #6c757d;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* Espaciado */
+.row.mt-5 {
+    margin-top: 40px;
+}
+
+.col-md-4.mb-4 {
+    margin-bottom: 30px;
+}
+</style>
