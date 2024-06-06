@@ -4,56 +4,177 @@
     var trendingProductos = ViewData["trendingproductos"] as List<pc4_leonardo.Models.Producto>;
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container mt-4">
+    <h1 class="display-4 mb-4">@ViewData["Title"]</h1>
 
-<form asp-controller="ML" asp-action="Predict" method="post">
-    <div class="form-group">
-        <label for="id">Escribe el Id del usuario</label>
-        <input type="text" class="form-control" id="id" name="id" />
-    </div>
-    <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+    <form asp-controller="ML" asp-action="Predict" method="post">
+        <div class="form-group">
+            <label for="id">Escribe el Id del usuario</label>
+            <input type="text" class="form-control" id="id" name="id" placeholder="Ej. 123" />
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
 
-@if (ratings != null && ratings.Count > 0)
-{
-    <h2>Recomendaciones de Productos</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Producto ID</th>
-                <th>Producto Nombre</th>
-                <th>Score Normalizado</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var rating in ratings)
-            {
-                var producto = trendingProductos.FirstOrDefault(p => p.ProductoId == rating.productoId);
+    @if (ratings != null && ratings.Count > 0)
+    {
+        <h2 class="mt-5">Recomendaciones de las Predicciones</h2>
+        <table class="table table-striped table-hover mt-3">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@rating.productoId</td>
-                    <td>@producto?.ProductoNombre</td>
-                    <td>@rating.normalizedScore</td>
+                    <th>Producto ID</th>
+                    <th>Producto Nombre</th>
+                    <th>Score Normalizado</th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var rating in ratings)
+                {
+                    var producto = trendingProductos.FirstOrDefault(p => p.ProductoId == rating.productoId);
+                    <tr>
+                        <td>@rating.productoId</td>
+                        <td>@producto?.ProductoNombre</td>
+                        <td>@rating.normalizedScore.ToString("0.00")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="mt-4 text-warning">No hay recomendaciones para mostrar.</p>
+    }
+
+    <h2 class="mt-5">Productos en Tendencia</h2>
+    @if (trendingProductos != null && trendingProductos.Count > 0)
+    {
+        <ul class="list-group mt-3">
+            @foreach (var producto in trendingProductos)
+            {
+                <li class="list-group-item">@producto.ProductoNombre</li>
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No hay recomendaciones para mostrar.</p>
+        </ul>
+    }
+    else
+    {
+        <p class="mt-4 text-warning">No hay productos en tendencia para mostrar.</p>
+    }
+</div>
+
+<!-- CSS embebido -->
+<style>
+/* Estilo General */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
 }
 
-<h2>Productos en Tendencia</h2>
-@if (trendingProductos != null && trendingProductos.Count > 0)
-{
-    <ul>
-        @foreach (var producto in trendingProductos)
-        {
-            <li>@producto.ProductoNombre</li>
-        }
-    </ul>
+/* Contenedor Principal */
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-else
-{
-    <p>No hay productos en tendencia para mostrar.</p>
+
+/* Encabezado */
+.container h1 {
+    color: #007bff;
+    font-weight: bold;
 }
+
+/* Formularios */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #343a40;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* Tablas */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #343a40;
+    color: white;
+    text-transform: uppercase;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Lista */
+.list-group {
+    margin-top: 10px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.list-group-item {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #ffffff;
+    transition: background-color 0.2s;
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* Textos de Advertencia */
+.text-warning {
+    color: #ffc107;
+}
+</style>
